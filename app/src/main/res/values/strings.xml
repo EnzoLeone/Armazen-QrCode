@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Armazem QrCode</string>
+    <string name="Usuario">Usuario</string>
+    <string name="Password">Senha</string>
+    <string name="Conectar">Conectar</string>
+    <string name="hConectar">Conectar ao Sistema</string>
+    <string name="fechar">Fechar</string>
+    <string name="conectar">Conectar</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="sair">Sair</string>
+</resources>
