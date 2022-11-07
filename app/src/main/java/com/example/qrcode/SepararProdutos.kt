@@ -2,8 +2,11 @@ package com.example.qrcode
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -19,6 +22,14 @@ class SepararProdutos : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_separar_produtos)
 
+
+        fun ChamarRelatorio (result: ArrayList<Listar.Produto>) {
+            println("teste")
+            startActivity(
+                Intent(this, Relatorio::class.java)
+                    .putExtra("Produtos", result)
+            )
+        }
 
 
 
@@ -87,16 +98,26 @@ class SepararProdutos : AppCompatActivity() {
                             LinearLayout.LayoutParams.WRAP_CONTENT
                         )
                         textView.layoutParams = layoutParams
-                        textView.text = "${x.nome} - RUA ${x.rua} - Nº ${x.numero} - ANDAR" +
-                                " ${x.andar}" + " - QUANTIDADE ${x.quantidadePedido}"
+                        layoutParams.setMargins(20,0,0,0)
+                        textView.setText(
+                            Html.fromHtml("<p>Produto: ${x.nome}</p>" +
+                                "<p>Rua: ${x.rua}</p>" +
+                                "<p>Número: ${x.numero}</p>" +
+                                "<p>Andar: ${x.andar}</p>" +
+                                "<p>Quantidade: ${x.quantidadePedido}</p>" +
+                                "<hl>", Html.FROM_HTML_MODE_COMPACT))
                         layout.addView(textView)
+                        val view = View(this)
+                        val viewLP:LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                            5)
+                        view.layoutParams = viewLP
+                        view.setBackgroundColor(Color.parseColor("#000000"))
+                        layout.addView(view)
 
-                        x.quantidadePedido = 2
                         Qrcodenovo(botao = btnLerQrCode2,
                             produto = x,
                             produtos = result,
                             propriedade = "Rua ${x.rua}")
-
                         break
                     }
                 }
@@ -179,16 +200,25 @@ class SepararProdutos : AppCompatActivity() {
                     Qrcodenovo(produto = produtoScaneado, produtos = result, propriedade = propriedade)
                 }else {
                     for (i in 0..result.size-1) {
+                        println(result[i])
                         if (produtoScaneado.id == result[i].id) {
-                            if (i+1 != result.size) {
+                            println(result.last().id == produtoScaneado.id)
+                            println(result.last().id)
                                 result[i].quantidade = produtoScaneado.quantidade
                                 result[i].scaneado = true
-                                ProximoProduto(estoque = result)
-                            }
+                                if (result.last().id == produtoScaneado.id) {
+                                      ChamarRelatorio(result)
+                                }else {
+                                    ProximoProduto(estoque = result)
+                                }
+
+//                            }
                         }
                     }
                 }
             }
+
+
         }
     }
 }

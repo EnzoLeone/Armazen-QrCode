@@ -1,8 +1,11 @@
 package com.example.qrcode
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -61,8 +64,6 @@ class Listar : AppCompatActivity() {
 
 
         btnIniciar.setOnClickListener{
-//            for (x in produtosScaneados) {
-//                //println(x)}
             val intent = Intent (this, SepararProdutos::class.java)
             intent.putExtra("Produtos", produtosScaneados)
             startActivity(intent)
@@ -73,9 +74,19 @@ class Listar : AppCompatActivity() {
             val textView = TextView(this)
             val layoutParams:LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT)
+            layoutParams.setMargins(20,0,0,0)
             textView.layoutParams = layoutParams
-            textView.text = "${it.nome} - ${it.quantidadePedido}"
+            textView.setText(
+                Html.fromHtml("<p>Produto: ${it.nome}</p>" +
+                        "<p>Quantidade: ${it.quantidadePedido}</p>" +
+                        "<hr>", Html.FROM_HTML_MODE_COMPACT))
             layout.addView(textView)
+            val view = View(this)
+            val viewLP:LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                5)
+            view.layoutParams = viewLP
+            view.setBackgroundColor(Color.parseColor("#000000"))
+            layout.addView(view)
         }
 
     }
@@ -125,7 +136,7 @@ class Listar : AppCompatActivity() {
             "CAFE FIORENZA 500G | 7898079250012 | D | 3 | 2 | 1000",
             "OLEO DE SOJA SOYA 1L | 7891107000504 | E | 1 | 1 | 1000",
             "OLEO DE SOJA GRANOL 1L | 7896334200550 | E | 2 | 1 | 1000",
-            "OLEO DE SOJA VELEIRO 1L | 7896036090107 | E | 3 |1 | 1000")
+            "OLEO DE SOJA VELEIRO 1L | 7896036090107 | E | 3 |1 | 0")
 
         val estoque: ArrayList<Produto> = ArrayList()
         dados.forEachIndexed {index, element ->

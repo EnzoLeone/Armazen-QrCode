@@ -17,7 +17,14 @@ class Login : AppCompatActivity() {
 
             val usuarios = HashMap<String, String>()
             usuarios["Enzo"] = "Enzo|Enzo Leone|1234"
-//            usuarios["Enzo"] = "Alexandre|Prof. Alexandre|0000"
+            usuarios["Diego"] = "Diego|Diego Louzeiro|1234"
+            usuarios["Victor"] = "Victor|Victor Sanches|1234"
+            usuarios["Yago"] = "Yago|Yago Matos|1234"
+            usuarios["Weverton"] = "Weverton|Weverton Viana|1234"
+            usuarios["Vitor"] = "Vitor|Vitor Alexandre|1234"
+            usuarios["Maycon"] = "Maycon|Maycon Calvacante|1234"
+            usuarios["Iuri"] = "Iuri|Iuri Martins|1234"
+            usuarios["Nahuan"] = "Nahuan|Nahuan Abreu|1234"
 
             val edtUsuario : EditText = findViewById(R.id.edtUsuario)
             edtUsuario.requestFocus()
@@ -43,7 +50,6 @@ class Login : AppCompatActivity() {
                         applicationContext,
                         "Seja bem vindo "+usuario.get(1).toString()+".",
                         Toast.LENGTH_LONG
-
                     ).show()
                     val intent = Intent (this, QrCodeListar::class.java)
                     startActivity(intent)
@@ -57,6 +63,5 @@ class Login : AppCompatActivity() {
         btnFechar.setOnClickListener {
             finish()
         }
-        //Toast.makeText(applicationContext, "onCreate Selecionado", Toast.LENGTH_SHORT).show()
     }
 }
